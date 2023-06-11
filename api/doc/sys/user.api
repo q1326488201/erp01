@@ -1,0 +1,79 @@
+syntax = "v1"
+import "../resp.api"
+import "role.api"
+type AddAuthUserReq  struct{
+    username string `json:"username"`
+    password string `json:"password"`
+    nickname string `json:"nickname"`
+    ftype int `json:"ftype,default=0"`
+    fnote string `json:"fnote,optional"`
+}
+
+type FindAuthUserReq  struct{
+    username string `json:"username,optional"`
+    nickname string `json:"nickname,optional"`
+    ftype int64 `json:"ftype,optional"`
+}
+type FindAuthUserResp  struct{
+    id int64 `json:"id"`
+    username string `json:"username"`
+    nickname string `json:"nickname"`
+    ftype int64 `json:"ftype"`
+    fnote string `json:"fnote"`
+    createDatetime  string `json:"createDatetime"`
+    roles  interface{} `json:"roles"`
+}
+type UpdateAuthUserReq  struct{
+    id int64 `json:"id"`
+    username string `json:"username"`
+    password string `json:"password"`
+    nickname string `json:"nickname"`
+    ftype int64 `json:"ftype,default=0"`
+    fnote string `json:"fnote,optional"`
+}
+
+type DeleteAuthUserReq  struct{
+    id []int64 `json:"id"`
+}
+
+@server (
+    group : sys/user
+    prefix : sys/user
+)
+service api-api {
+    @handler addUser
+    post /add (AddAuthUserReq) returns (ResultResponse)
+    @handler findUser
+    post /find (FindAuthUserReq) returns (ResultResponse)
+    @handler updateUser
+    post /update (UpdateAuthUserReq) returns (ResultResponse)
+    @handler deleteUser
+    post /delete (DeleteAuthUserReq) returns (ResultResponse)
+}
+
+
+
+//addDictReq struct {
+//Value string `json:"value"`                        // 数据值
+//Label string `json:"label"`                        // 标签名
+//Type string `json:"type"`                          // 类型
+//Description string `json:"description,optional"`            // 描述
+//Sort int64 `json:"sort"`                          // 排序（升序）
+//Remarks string `json:"remarks,optional"`                    // 备注信息
+//DelFlag int64 `json:"delFlag"`                     // 是否删除  0：已删除  1：正常
+//}
+//addMenuReq struct {
+//Name string `json:"name"`                                   // 菜单名称
+//ParentId int64 `json:"parentId,optional"`                   // 父菜单ID，一级菜单为0
+//Url string `json:"url,optional"`                            // 菜单URL,类型：1.普通页面（如用户管理， /sysmodel/user） 2.嵌套完整外部页面，以http(s)开头的链接 3.嵌套服务器页面，使用iframe:前缀+目标URL(如SQL监控， iframe:/druid/login.html, iframe:前缀会替换成服务器地址)
+//Perms string `json:"perms,optional"`                        // 授权(多个用逗号分隔，如：sysmodel:user:add,sysmodel:user:edit)
+//Type int64 `json:"type,optional"`                           // 类型   0：目录   1：菜单   2：按钮
+//Icon string `json:"icon,optional"`                          // 菜单图标
+//OrderNum int64 `json:"orderNum,optional"`                   // 排序
+//VuePath string `json:"vuePath,optional"`                    // vue系统的path
+//VueComponent string `json:"vueComponent,optional"`          // vue的页面
+//VueIcon string `json:"vueIcon,optional"`                    // vue的图标
+//VueRedirect string `json:"vueRedirect,optional"`            // vue的路由重定向
+//DelFlag int64 `json:"delFlag"`                              // 是否删除  0：已删除  1：正常
+//BackgroundUrl string `json:"backgroundUrl,optional"`        // 后台地址
+//}

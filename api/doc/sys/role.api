@@ -1,0 +1,41 @@
+
+syntax = "v1"
+import "../resp.api"
+
+type AddAuthRoleReq struct {
+    fname string `json:"fname"`
+    fnote string `json:"fnote"`
+}
+type FindAuthRoleReq{
+    fname string `json:"fname,optional"`
+}
+type FindAuthRoleResp struct {
+    id int64 `json:"id"`
+    fname string `json:"fname"`
+    fnote string `json:"fnote"`
+    createDatetime string `json:"createDatetime"`
+    users  interface{} `json:"users"`
+}
+type UpdateAuthRoleReq struct {
+    id int64 `json:"id"`
+    fname string `json:"fname"`
+    fnote string `json:"fnote,optional"`
+}
+type DeleteAuthRoleReq struct {
+    id []int64 `json:"id"`
+
+}
+@server (
+    group : sys/role
+    prefix : sys/role
+)
+service api-api {
+    @handler addRole
+    post /add (AddAuthRoleReq) returns (ResultResponse)
+    @handler findRole
+    post /find (FindAuthRoleReq) returns (ResultResponse)
+    @handler updateRole
+    post /update (UpdateAuthRoleReq) returns (ResultResponse)
+    @handler deleteRole
+    post /delete (DeleteAuthRoleReq) returns (ResultResponse)
+}

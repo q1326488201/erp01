@@ -1,0 +1,5 @@
+Name: sys-sys
+Host: 0.0.0.0
+Port: 8888
+MySql:
+  Dsn: root:root@tcp(127.0.0.1:3306)/erp?charset=utf8mb4&parseTime=True&loc=Local

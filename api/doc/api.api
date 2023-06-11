@@ -1,0 +1,10 @@
+syntax = "v1"
+import "sys/user.api"
+import "sys/role.api"
+import "sys/user_role.api"
+import "resp.api"
+
+service api-api {
+	@handler test
+	get /test  returns (ResultResponse)
+}

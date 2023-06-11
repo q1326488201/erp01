@@ -1,0 +1,20 @@
+syntax = "v1"
+import "../resp.api"
+
+type AddUserRole struct{
+userId int64 `json:"userId"`
+roleId int64 `json:"roleId"`
+}
+type UserRoleReq{
+    userRoleLst []AddUserRole `json:"userRoleLst"`
+}
+@server (
+    group : sys/userole
+    prefix : sys/userole
+)
+service api-api {
+    @handler addUserole
+    post /add (UserRoleReq) returns (ResultResponse)
+    @handler deleteUserole
+    post /delete (UserRoleReq) returns (ResultResponse)
+}
