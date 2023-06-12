@@ -11,4 +11,5 @@ func main() {
 	db.AutoMigrate(&entry.AuthUser{})
 	db.AutoMigrate(&entry.AuthRole{})
 	db.AutoMigrate(&entry.AuthUserRole{})
+	db.AutoMigrate(&entry.AuthMenu{})
 }

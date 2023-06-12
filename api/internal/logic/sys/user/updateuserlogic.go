@@ -27,11 +27,12 @@ func NewUpdateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 
 func (l *UpdateUserLogic) UpdateUser(req *types.UpdateAuthUserReq) (resp *types.ResultResponse, err error) {
 	_, err = query.AuthUser.Where(query.AuthUser.ID.Eq(req.Id)).Updates(models.AuthUser{
-		Username: req.Username,
-		Password: req.Password,
-		Nickname: req.Nickname,
-		Ftype:    req.Ftype,
-		Fnote:    req.Fnote,
+		Username:  req.Username,
+		Password:  req.Password,
+		Nickname:  req.Nickname,
+		AvatarURL: req.Avatar_url,
+		Ftype:     req.Ftype,
+		Fnote:     req.Fnote,
 	})
 	if err != nil {
 		return nil, errorf.NewDefaultError(err.Error())

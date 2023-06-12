@@ -2,6 +2,7 @@ syntax = "v1"
 import "sys/user.api"
 import "sys/role.api"
 import "sys/user_role.api"
+import "sys/menu.api"
 import "resp.api"
 
 service api-api {

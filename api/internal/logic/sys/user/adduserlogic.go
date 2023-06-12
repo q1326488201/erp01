@@ -32,11 +32,12 @@ func (l *AddUserLogic) AddUser(req *types.AddAuthUserReq) (resp *types.ResultRes
 		return nil, errorf.NewDefaultError("账号已存在")
 	}
 	if err = query.AuthUser.Create(&models.AuthUser{
-		Username: req.Username,
-		Password: req.Password,
-		Nickname: req.Nickname,
-		Fnote:    req.Fnote,
-		Ftype:    int64(req.Ftype),
+		Username:  req.Username,
+		Password:  req.Password,
+		Nickname:  req.Nickname,
+		AvatarURL: req.Avatar_url,
+		Fnote:     req.Fnote,
+		Ftype:     int64(req.Ftype),
 	}); err != nil {
 		return nil, errorf.NewDefaultError(err.Error())
 	}

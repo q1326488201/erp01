@@ -6,6 +6,7 @@ type AddAuthUserReq  struct{
     password string `json:"password"`
     nickname string `json:"nickname"`
     ftype int `json:"ftype,default=0"`
+    avatar_url  string `json:"avatarUrl"`
     fnote string `json:"fnote,optional"`
 }
 
@@ -20,11 +21,13 @@ type FindAuthUserResp  struct{
     nickname string `json:"nickname"`
     ftype int64 `json:"ftype"`
     fnote string `json:"fnote"`
+    avatar_url  string `json:"avatar_url"`
     createDatetime  string `json:"createDatetime"`
     roles  interface{} `json:"roles"`
 }
 type UpdateAuthUserReq  struct{
     id int64 `json:"id"`
+    avatar_url  string `json:"avatar_url,optional"`
     username string `json:"username"`
     password string `json:"password"`
     nickname string `json:"nickname"`

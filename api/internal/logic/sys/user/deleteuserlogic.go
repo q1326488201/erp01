@@ -6,8 +6,6 @@ import (
 	"app/dao/models"
 	"app/dao/query"
 	"context"
-	"fmt"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -24,10 +22,8 @@ func NewDeleteUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 		svcCtx: svcCtx,
 	}
 }
-
 func (l *DeleteUserLogic) DeleteUser(req *types.DeleteAuthUserReq) (resp *types.ResultResponse, err error) {
 	for _, id := range req.Id {
-		fmt.Println(id)
 		query.AuthUser.Unscoped().Delete(&models.AuthUser{
 			ID: id,
 		})

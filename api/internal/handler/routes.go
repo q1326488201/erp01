@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	sysmenu "app/api/internal/handler/sys/menu"
 	sysrole "app/api/internal/handler/sys/role"
 	sysuser "app/api/internal/handler/sys/user"
 	sysuserole "app/api/internal/handler/sys/userole"
@@ -89,5 +90,21 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 		},
 		rest.WithPrefix("/sys/userole"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/add",
+				Handler: sysmenu.AddRoleHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/delete",
+				Handler: sysmenu.DeleteRoleHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/sys/menu"),
 	)
 }

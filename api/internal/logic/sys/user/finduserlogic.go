@@ -43,6 +43,7 @@ func (l *FindUserLogic) FindUser(req *types.FindAuthUserReq) (resp *types.Result
 			Username:       user.Username,
 			Nickname:       user.Nickname,
 			Ftype:          user.Ftype,
+			Avatar_url:     user.AvatarURL,
 			Fnote:          user.Fnote,
 			CreateDatetime: user.CreatedAt.Format(time.DateTime),
 			Roles:          Roles,

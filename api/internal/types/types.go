@@ -2,11 +2,12 @@
 package types
 
 type AddAuthUserReq struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Nickname string `json:"nickname"`
-	Ftype    int    `json:"ftype,default=0"`
-	Fnote    string `json:"fnote,optional"`
+	Username   string `json:"username"`
+	Password   string `json:"password"`
+	Nickname   string `json:"nickname"`
+	Ftype      int    `json:"ftype,default=0"`
+	Avatar_url string `json:"avatarUrl"`
+	Fnote      string `json:"fnote,optional"`
 }
 
 type FindAuthUserReq struct {
@@ -21,17 +22,19 @@ type FindAuthUserResp struct {
 	Nickname       string      `json:"nickname"`
 	Ftype          int64       `json:"ftype"`
 	Fnote          string      `json:"fnote"`
+	Avatar_url     string      `json:"avatar_url"`
 	CreateDatetime string      `json:"createDatetime"`
 	Roles          interface{} `json:"roles"`
 }
 
 type UpdateAuthUserReq struct {
-	Id       int64  `json:"id"`
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Nickname string `json:"nickname"`
-	Ftype    int64  `json:"ftype,default=0"`
-	Fnote    string `json:"fnote,optional"`
+	Id         int64  `json:"id"`
+	Avatar_url string `json:"avatar_url,optional"`
+	Username   string `json:"username"`
+	Password   string `json:"password"`
+	Nickname   string `json:"nickname"`
+	Ftype      int64  `json:"ftype,default=0"`
+	Fnote      string `json:"fnote,optional"`
 }
 
 type DeleteAuthUserReq struct {
@@ -78,4 +81,21 @@ type AddUserRole struct {
 
 type UserRoleReq struct {
 	UserRoleLst []AddUserRole `json:"userRoleLst"`
+}
+
+type AddAuthMenuReq struct {
+	FName         string `json:"name"`                  // 菜单名称
+	FParentId     int64  `json:"parentId,optional"`     // 父菜单ID，一级菜单为0
+	FUrl          string `json:"url,optional"`          // 菜单URL,类型：1.普通页面（如用户管理， /sysmodel/user） 2.嵌套完整外部页面，以http(s)开头的链接 3.嵌套服务器页面，使用iframe:前缀+目标URL(如SQL监控， iframe:/druid/login.html, iframe:前缀会替换成服务器地址)
+	FPerms        string `json:"perms,optional"`        // 授权(多个用逗号分隔，如：sysmodel:user:add,sysmodel:user:edit)
+	FType         int64  `json:"type,optional"`         // 类型   0：目录   1：菜单   2：按钮
+	FIcon         string `json:"icon,optional"`         // 菜单图标
+	FOrderNum     int64  `json:"orderNum,optional"`     // 排序
+	FVuePath      string `json:"vuePath,optional"`      // vue系统的path
+	FVueComponent string `json:"vueComponent,optional"` // vue的页面
+	FVueRedirect  string `json:"vueRedirect,optional"`  // vue的路由重定向
+}
+
+type DeleteAuthMenuReq struct {
+	Id []int64 `json:"id"`
 }

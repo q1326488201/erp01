@@ -36,6 +36,7 @@ func newAuthUser(db *gorm.DB, opts ...gen.DOOption) authUser {
 	_authUser.Nickname = field.NewString(tableName, "nickname")
 	_authUser.Ftype = field.NewInt64(tableName, "ftype")
 	_authUser.Fnote = field.NewString(tableName, "fnote")
+	_authUser.AvatarURL = field.NewString(tableName, "avatar_url")
 
 	_authUser.fillFieldMap()
 
@@ -55,6 +56,7 @@ type authUser struct {
 	Nickname  field.String
 	Ftype     field.Int64
 	Fnote     field.String
+	AvatarURL field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -80,6 +82,7 @@ func (a *authUser) updateTableName(table string) *authUser {
 	a.Nickname = field.NewString(table, "nickname")
 	a.Ftype = field.NewInt64(table, "ftype")
 	a.Fnote = field.NewString(table, "fnote")
+	a.AvatarURL = field.NewString(table, "avatar_url")
 
 	a.fillFieldMap()
 
@@ -96,7 +99,7 @@ func (a *authUser) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *authUser) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 9)
+	a.fieldMap = make(map[string]field.Expr, 10)
 	a.fieldMap["id"] = a.ID
 	a.fieldMap["created_at"] = a.CreatedAt
 	a.fieldMap["updated_at"] = a.UpdatedAt
@@ -106,6 +109,7 @@ func (a *authUser) fillFieldMap() {
 	a.fieldMap["nickname"] = a.Nickname
 	a.fieldMap["ftype"] = a.Ftype
 	a.fieldMap["fnote"] = a.Fnote
+	a.fieldMap["avatar_url"] = a.AvatarURL
 }
 
 func (a authUser) clone(db *gorm.DB) authUser {

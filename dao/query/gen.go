@@ -17,6 +17,7 @@ import (
 
 var (
 	Q            = new(Query)
+	AuthMenu     *authMenu
 	AuthRole     *authRole
 	AuthUser     *authUser
 	AuthUserRole *authUserRole
@@ -24,6 +25,7 @@ var (
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	*Q = *Use(db, opts...)
+	AuthMenu = &Q.AuthMenu
 	AuthRole = &Q.AuthRole
 	AuthUser = &Q.AuthUser
 	AuthUserRole = &Q.AuthUserRole
@@ -32,6 +34,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
 		db:           db,
+		AuthMenu:     newAuthMenu(db, opts...),
 		AuthRole:     newAuthRole(db, opts...),
 		AuthUser:     newAuthUser(db, opts...),
 		AuthUserRole: newAuthUserRole(db, opts...),
@@ -41,6 +44,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 type Query struct {
 	db *gorm.DB
 
+	AuthMenu     authMenu
 	AuthRole     authRole
 	AuthUser     authUser
 	AuthUserRole authUserRole
@@ -51,6 +55,7 @@ func (q *Query) Available() bool { return q.db != nil }
 func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
 		db:           db,
+		AuthMenu:     q.AuthMenu.clone(db),
 		AuthRole:     q.AuthRole.clone(db),
 		AuthUser:     q.AuthUser.clone(db),
 		AuthUserRole: q.AuthUserRole.clone(db),
@@ -68,6 +73,7 @@ func (q *Query) WriteDB() *Query {
 func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 	return &Query{
 		db:           db,
+		AuthMenu:     q.AuthMenu.replaceDB(db),
 		AuthRole:     q.AuthRole.replaceDB(db),
 		AuthUser:     q.AuthUser.replaceDB(db),
 		AuthUserRole: q.AuthUserRole.replaceDB(db),
@@ -75,6 +81,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 }
 
 type queryCtx struct {
+	AuthMenu     IAuthMenuDo
 	AuthRole     IAuthRoleDo
 	AuthUser     IAuthUserDo
 	AuthUserRole IAuthUserRoleDo
@@ -82,6 +89,7 @@ type queryCtx struct {
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
+		AuthMenu:     q.AuthMenu.WithContext(ctx),
 		AuthRole:     q.AuthRole.WithContext(ctx),
 		AuthUser:     q.AuthUser.WithContext(ctx),
 		AuthUserRole: q.AuthUserRole.WithContext(ctx),

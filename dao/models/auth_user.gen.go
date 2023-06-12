@@ -23,6 +23,7 @@ type AuthUser struct {
 	Nickname  string         `gorm:"column:nickname;not null" json:"nickname"`
 	Ftype     int64          `gorm:"column:ftype" json:"ftype"`
 	Fnote     string         `gorm:"column:fnote" json:"fnote"`
+	AvatarURL string         `gorm:"column:avatar_url" json:"avatar_url"`
 }
 
 // TableName AuthUser's table name
