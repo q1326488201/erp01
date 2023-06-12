@@ -51,3 +51,5 @@ func (l *FindUserLogic) FindUser(req *types.FindAuthUserReq) (resp *types.Result
 	}
 	return types.NewDataResponse(lst), nil
 }
+
+//根据用户找到角色找到菜单

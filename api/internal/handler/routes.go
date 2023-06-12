@@ -97,12 +97,17 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodPost,
 				Path:    "/add",
-				Handler: sysmenu.AddRoleHandler(serverCtx),
+				Handler: sysmenu.AddMenuHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/find",
+				Handler: sysmenu.FindAuthMenuHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
 				Path:    "/delete",
-				Handler: sysmenu.DeleteRoleHandler(serverCtx),
+				Handler: sysmenu.DeleteMenuHandler(serverCtx),
 			},
 		},
 		rest.WithPrefix("/sys/menu"),

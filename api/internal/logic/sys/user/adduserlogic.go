@@ -24,12 +24,12 @@ func NewAddUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddUserLo
 	}
 }
 func (l *AddUserLogic) AddUser(req *types.AddAuthUserReq) (resp *types.ResultResponse, err error) {
-	count, err := query.AuthUser.Where(query.AuthUser.Username.Eq(req.Username)).Count()
-	if err != nil {
+	if count, err := query.AuthUser.Where(query.AuthUser.Username.Eq(req.Username)).Count(); err != nil {
 		return nil, errorf.NewDefaultError(err.Error())
-	}
-	if count != 0 {
-		return nil, errorf.NewDefaultError("账号已存在")
+	} else {
+		if count > 0 {
+			return nil, errorf.NewDefaultError("账号已存在")
+		}
 	}
 	if err = query.AuthUser.Create(&models.AuthUser{
 		Username:  req.Username,

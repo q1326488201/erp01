@@ -83,6 +83,24 @@ type UserRoleReq struct {
 	UserRoleLst []AddUserRole `json:"userRoleLst"`
 }
 
+type FindAuthMenuReq struct {
+	FName string `json:"name"`
+}
+
+type FindAuthMenuResp struct {
+	FID           int64  `json:"id"`
+	FName         string `json:"name"`
+	FParentId     int64  `json:"parentId"`
+	FUrl          string `json:"url"`
+	FPerms        string `json:"perms"`
+	FType         int64  `json:"type"`
+	FIcon         string `json:"icon"`
+	FOrderNum     int64  `json:"orderNum"`
+	FVuePath      string `json:"vuePath"`
+	FVueComponent string `json:"vueComponent"`
+	FVueRedirect  string `json:"vueRedirect"`
+}
+
 type AddAuthMenuReq struct {
 	FName         string `json:"name"`                  // 菜单名称
 	FParentId     int64  `json:"parentId,optional"`     // 父菜单ID，一级菜单为0

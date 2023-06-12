@@ -18,15 +18,16 @@ type AuthMenu struct {
 	CreatedAt    time.Time      `gorm:"column:created_at" json:"created_at"`
 	UpdatedAt    time.Time      `gorm:"column:updated_at" json:"updated_at"`
 	DeletedAt    gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	RoleID       string         `gorm:"column:roleID" json:"roleID"`
+	Name         string         `gorm:"column:name" json:"name"`
 	ParentID     int64          `gorm:"column:parentId" json:"parentId"`
 	URL          string         `gorm:"column:url" json:"url"`
+	Perms        string         `gorm:"column:perms" json:"perms"`
 	Icon         string         `gorm:"column:icon" json:"icon"`
 	OrderNum     int64          `gorm:"column:orderNum" json:"orderNum"`
 	VuePath      string         `gorm:"column:vuePath" json:"vuePath"`
 	VueComponent string         `gorm:"column:vueComponent" json:"vueComponent"`
 	VueRedirect  string         `gorm:"column:vueRedirect" json:"vueRedirect"`
-	Perms        string         `gorm:"column:perms" json:"perms"`
+	Ftype        int64          `gorm:"column:ftype" json:"ftype"`
 }
 
 // TableName AuthMenu's table name

@@ -31,15 +31,16 @@ func newAuthMenu(db *gorm.DB, opts ...gen.DOOption) authMenu {
 	_authMenu.CreatedAt = field.NewTime(tableName, "created_at")
 	_authMenu.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_authMenu.DeletedAt = field.NewField(tableName, "deleted_at")
-	_authMenu.RoleID = field.NewString(tableName, "roleID")
+	_authMenu.Name = field.NewString(tableName, "name")
 	_authMenu.ParentID = field.NewInt64(tableName, "parentId")
 	_authMenu.URL = field.NewString(tableName, "url")
+	_authMenu.Perms = field.NewString(tableName, "perms")
 	_authMenu.Icon = field.NewString(tableName, "icon")
 	_authMenu.OrderNum = field.NewInt64(tableName, "orderNum")
 	_authMenu.VuePath = field.NewString(tableName, "vuePath")
 	_authMenu.VueComponent = field.NewString(tableName, "vueComponent")
 	_authMenu.VueRedirect = field.NewString(tableName, "vueRedirect")
-	_authMenu.Perms = field.NewString(tableName, "perms")
+	_authMenu.Ftype = field.NewInt64(tableName, "ftype")
 
 	_authMenu.fillFieldMap()
 
@@ -54,15 +55,16 @@ type authMenu struct {
 	CreatedAt    field.Time
 	UpdatedAt    field.Time
 	DeletedAt    field.Field
-	RoleID       field.String
+	Name         field.String
 	ParentID     field.Int64
 	URL          field.String
+	Perms        field.String
 	Icon         field.String
 	OrderNum     field.Int64
 	VuePath      field.String
 	VueComponent field.String
 	VueRedirect  field.String
-	Perms        field.String
+	Ftype        field.Int64
 
 	fieldMap map[string]field.Expr
 }
@@ -83,15 +85,16 @@ func (a *authMenu) updateTableName(table string) *authMenu {
 	a.CreatedAt = field.NewTime(table, "created_at")
 	a.UpdatedAt = field.NewTime(table, "updated_at")
 	a.DeletedAt = field.NewField(table, "deleted_at")
-	a.RoleID = field.NewString(table, "roleID")
+	a.Name = field.NewString(table, "name")
 	a.ParentID = field.NewInt64(table, "parentId")
 	a.URL = field.NewString(table, "url")
+	a.Perms = field.NewString(table, "perms")
 	a.Icon = field.NewString(table, "icon")
 	a.OrderNum = field.NewInt64(table, "orderNum")
 	a.VuePath = field.NewString(table, "vuePath")
 	a.VueComponent = field.NewString(table, "vueComponent")
 	a.VueRedirect = field.NewString(table, "vueRedirect")
-	a.Perms = field.NewString(table, "perms")
+	a.Ftype = field.NewInt64(table, "ftype")
 
 	a.fillFieldMap()
 
@@ -108,20 +111,21 @@ func (a *authMenu) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *authMenu) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 13)
+	a.fieldMap = make(map[string]field.Expr, 14)
 	a.fieldMap["id"] = a.ID
 	a.fieldMap["created_at"] = a.CreatedAt
 	a.fieldMap["updated_at"] = a.UpdatedAt
 	a.fieldMap["deleted_at"] = a.DeletedAt
-	a.fieldMap["roleID"] = a.RoleID
+	a.fieldMap["name"] = a.Name
 	a.fieldMap["parentId"] = a.ParentID
 	a.fieldMap["url"] = a.URL
+	a.fieldMap["perms"] = a.Perms
 	a.fieldMap["icon"] = a.Icon
 	a.fieldMap["orderNum"] = a.OrderNum
 	a.fieldMap["vuePath"] = a.VuePath
 	a.fieldMap["vueComponent"] = a.VueComponent
 	a.fieldMap["vueRedirect"] = a.VueRedirect
-	a.fieldMap["perms"] = a.Perms
+	a.fieldMap["ftype"] = a.Ftype
 }
 
 func (a authMenu) clone(db *gorm.DB) authMenu {
